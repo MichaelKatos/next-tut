@@ -10,6 +10,15 @@ app
   .prepare()
   .then(() => {
     const server = express();
+    const Routes = require('./routes/index.js');
+
+    server.use('/api', Routes);
+
+    server.get('/posts/:slug', (req, res) => {
+      let actualPage = '/post';
+      let queryParams = { title: req.params.slug };
+      return app.render(req, res, actualPage, queryParams);
+    });
 
     server.get('/api/shows', (req, res) => {
       return res.end('fgojdlgjdgdg');
